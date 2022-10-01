@@ -120,7 +120,7 @@ function run() {
                 });
                 process.stderr.write(`\n3333`);
                 process.stderr.write(`\n${mvnInstall}`);
-                const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/*.txt'));
+                const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt'));
                 const junitString = junitReports.toString();
                 process.stderr.write(`\n${junitString}`);
                 const junitJson = JSON.parse(junitReports.toString());

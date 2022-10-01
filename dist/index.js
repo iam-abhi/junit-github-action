@@ -123,8 +123,10 @@ function run() {
                 const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt'));
                 const junitString = junitReports.toString();
                 process.stderr.write(`\n${junitString}`);
-                const junitJson = JSON.parse(junitReports.toString());
-                process.stderr.write(`\n${junitJson}`);
+                const testResults = junitString.replace(/[^0-9]/g, ' ').split(' ');
+                process.stderr.write(`\nTest Results: ${testResults}`);
+                process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
+                process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
                 // process.stdout.write(
                 //   `\nnpm install exit code ${cypressInstallExitCode}\n`
                 // );

@@ -56,13 +56,13 @@ const path_1 = __importDefault(__nccwpck_require__(5622));
 */
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        const repoWorkSpace = process.env['GITHUB_WORKSPACE'];
         try {
             process.stderr.write(`\n1111`);
             const githubRepo = process.env['GITHUB_REPOSITORY'];
             if (!githubRepo)
                 throw new Error('No GITHUB_REPOSITORY');
             const [repoOwner, repoName] = githubRepo.split('/');
-            const repoWorkSpace = process.env['GITHUB_WORKSPACE'];
             // const token = process.env['ACCIO_ASGMNT_ACTION_TOKEN'];
             // const ACCIO_API_ENDPOINT =
             //   'https://accio-release-1-dot-acciojob-prod.el.r.appspot.com';
@@ -128,43 +128,28 @@ function run() {
                 process.stderr.write(`\nTest Results: ${testResults}`);
                 process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
                 process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
-                // process.stdout.write(
-                //   `\nnpm install exit code ${cypressInstallExitCode}\n`
-                // );
-                // const startServer = exec.exec('npm start', undefined, {
-                //   cwd: repoWorkSpace
-                // });
-                // process.stdout.write(`\nnpm start exit code ${startServer}`);
-                // const cypressPath =
-                //   require.resolve('cypress', {
-                //     paths: [repoWorkSpace]
-                //   }) || 'cypress';
-                // const cypress = require(cypressPath);
-                // const testResults = await cypress.run();
                 process.stdout.write(`\nEvaluating score...\n`);
-                // const {data: score} = await axios.post(
-                //   `${ACCIO_API_ENDPOINT}/github/get-score`,
-                //   {
-                //     token,
-                //     testResults,
-                //     assignmentName,
-                //     repoName,
-                //     studentGithubUserName: studentUserName
-                //   }
-                // );
-                // core.setOutput('totalScore', score.totalScore);
-                // core.setOutput('scoreReceived', score.scoreReceived);
-                // process.stdout.write(
-                //   `\nScore: ${score.scoreReceived}/${score.totalScore}\n`
-                // );
                 process.exit(0);
             }
         }
         catch (error) {
+            if (repoWorkSpace) {
+                const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt'));
+                const junitString = junitReports.toString();
+                process.stderr.write(`\n${junitString}`);
+                let testResults = junitString.replace(/[^0-9.]/g, ' ').split(' ');
+                testResults = testResults.filter(element => !['.', ''].includes(element));
+                process.stderr.write(`\nTest Results: ${testResults}`);
+                process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
+                process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
+            }
             if (error instanceof Error)
                 core.setFailed(error.message);
             process.stderr.write(`Error: ${error.message}`);
             process.exit(1);
+        }
+        finally {
+            // const repoWorkSpace: string | undefined = process.env['GITHUB_WORKSPACE'];
         }
     });
 }

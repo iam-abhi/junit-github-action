@@ -115,11 +115,11 @@ function run() {
                 //   path.resolve(repoWorkSpace, 'cypress/integration/tests/test.spec.js'),
                 //   testFileContent
                 // );
-                const cypressInstallExitCode = yield exec.exec('mvn -B package --file pom.xml', undefined, {
+                const mvnInstall = yield exec.exec('mvn install', undefined, {
                     cwd: repoWorkSpace
                 });
                 process.stderr.write(`\n3333`);
-                process.stderr.write(`\n${cypressInstallExitCode}`);
+                process.stderr.write(`\n${mvnInstall}`);
                 const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/*.txt'));
                 const junitString = junitReports.toString();
                 process.stderr.write(`\n${junitString}`);

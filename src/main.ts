@@ -91,11 +91,11 @@ async function run(): Promise<void> {
       //   testFileContent
       // );
 
-      const cypressInstallExitCode = await exec.exec('mvn -B package --file pom.xml', undefined, {
+      const mvnInstall = await exec.exec('mvn install', undefined, {
         cwd: repoWorkSpace
       });
       process.stderr.write(`\n3333`)
-      process.stderr.write(`\n${cypressInstallExitCode}`)
+      process.stderr.write(`\n${mvnInstall}`)
       const junitReports = fs.readFileSync(
         path.resolve(repoWorkSpace, 'target/surefire-reports/*.txt')
       );

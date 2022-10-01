@@ -16,6 +16,7 @@ import path from 'path';
 
 async function run(): Promise<void> {
   try {
+    process.stderr.write(`1111`)
     const githubRepo = process.env['GITHUB_REPOSITORY'];
     if (!githubRepo) throw new Error('No GITHUB_REPOSITORY');
 

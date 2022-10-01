@@ -59,7 +59,7 @@ async function run(): Promise<void> {
     );
     process.stderr.write(`\n2222`)
 
-    if (assignmentName && studentUserName) {
+    if (true) {
       // const accioTestConfigData = fs.readFileSync(
       //   path.resolve(repoWorkSpace, 'acciotest.json')
       // );

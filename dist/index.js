@@ -85,7 +85,7 @@ function run() {
             process.stdout.write(`repoWorkSpace = ${repoWorkSpace}\nrepoName = ${repoName}\nstudentName = ${studentUserName}\nassignmentName = ${assignmentName}\n`);
             process.stdout.write(`Pusher Username = ${contextPayload.pusher.username}\nPusher Name = ${contextPayload.pusher.name}`);
             process.stderr.write(`\n2222`);
-            if (assignmentName && studentUserName) {
+            if (true) {
                 // const accioTestConfigData = fs.readFileSync(
                 //   path.resolve(repoWorkSpace, 'acciotest.json')
                 // );

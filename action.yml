@@ -5,11 +5,11 @@ inputs:
   accio_endpoint:
     required: false
     description: 'The accio endpoint'
-outputs:
-  totalScore:
-    description: 'Total Score for this assignment'
-  scoreReceived:
-    description: 'Score received by the student'
+# outputs:
+#   totalScore:
+#     description: 'Total Score for this assignment'
+#   scoreReceived:
+#     description: 'Score received by the student'
 runs:
   using: 'node12'
   main: 'dist/index.js'

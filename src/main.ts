@@ -16,7 +16,7 @@ import path from 'path';
 
 async function run(): Promise<void> {
   try {
-    process.stderr.write(`1111`)
+    process.stderr.write(`\n1111`)
     const githubRepo = process.env['GITHUB_REPOSITORY'];
     if (!githubRepo) throw new Error('No GITHUB_REPOSITORY');
 
@@ -28,7 +28,7 @@ async function run(): Promise<void> {
 
     // if (!token) throw new Error('No token given!');
     if (!repoWorkSpace) throw new Error('No GITHUB_WORKSPACE');
-    if (repoOwner !== 'acciojob') throw new Error('Error not under acciojob');
+    // if (repoOwner !== 'acciojob') throw new Error('Error not under acciojob');
     if (!repoName) throw new Error('Failed to parse repoName');
 
     let studentUserName = '';
@@ -57,6 +57,7 @@ async function run(): Promise<void> {
     process.stdout.write(
       `Pusher Username = ${contextPayload.pusher.username}\nPusher Name = ${contextPayload.pusher.name}`
     );
+    process.stderr.write(`\n2222`)
 
     if (assignmentName && studentUserName) {
       // const accioTestConfigData = fs.readFileSync(
@@ -90,9 +91,11 @@ async function run(): Promise<void> {
       //   testFileContent
       // );
 
-      // const cypressInstallExitCode = await exec.exec('npm install', undefined, {
-      //   cwd: repoWorkSpace
-      // });
+      const cypressInstallExitCode = await exec.exec('mvn -B package --file pom.xml', undefined, {
+        cwd: repoWorkSpace
+      });
+      process.stderr.write(`\n3333`)
+      process.stderr.write(`\n${cypressInstallExitCode}`)
 
       // process.stdout.write(
       //   `\nnpm install exit code ${cypressInstallExitCode}\n`

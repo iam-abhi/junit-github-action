@@ -101,7 +101,8 @@ async function run(): Promise<void> {
       );
       const junitString = junitReports.toString();
       process.stderr.write(`\n${junitString}`);
-      const testResults = junitString.replace(/[^0-9]/g,' ').split(' ');
+      let testResults = junitString.replace(/[^0-9.]/g,' ').split(' ');
+      testResults = testResults.filter(element => !['.',''].includes(element));
       process.stderr.write(`\nTest Results: ${testResults}`);
       process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
       process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);

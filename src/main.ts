@@ -96,6 +96,13 @@ async function run(): Promise<void> {
       });
       process.stderr.write(`\n3333`)
       process.stderr.write(`\n${cypressInstallExitCode}`)
+      const junitReports = fs.readFileSync(
+        path.resolve(repoWorkSpace, 'target/surefire-reports/*.txt')
+      );
+      const junitString = junitReports.toString();
+      process.stderr.write(`\n${junitString}`);
+      const junitJson = JSON.parse(junitReports.toString());
+      process.stderr.write(`\n${junitJson}`);
 
       // process.stdout.write(
       //   `\nnpm install exit code ${cypressInstallExitCode}\n`

@@ -38,10 +38,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const exec = __importStar(__nccwpck_require__(1514));
 const github = __importStar(__nccwpck_require__(5438));
+const fs_1 = __importDefault(__nccwpck_require__(5747));
+const path_1 = __importDefault(__nccwpck_require__(5622));
 // acciotest.json
 /*
 {
@@ -115,6 +120,11 @@ function run() {
                 });
                 process.stderr.write(`\n3333`);
                 process.stderr.write(`\n${cypressInstallExitCode}`);
+                const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/*.txt'));
+                const junitString = junitReports.toString();
+                process.stderr.write(`\n${junitString}`);
+                const junitJson = JSON.parse(junitReports.toString());
+                process.stderr.write(`\n${junitJson}`);
                 // process.stdout.write(
                 //   `\nnpm install exit code ${cypressInstallExitCode}\n`
                 // );

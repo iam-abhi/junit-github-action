@@ -39,6 +39,8 @@ async function run(): Promise<void> {
     process.stderr.write(`\n${repoOwner}`)
     process.stderr.write(`\n${repoName}`)
     process.stderr.write(`\n${contextPayload}`)
+    process.stderr.write(`\n${contextPayload.pusher.name}`)
+    process.stderr.write(`\n${contextPayload.pusher.username}`)
 
     if (contextPayload.pusher.username) {
       if (repoName.includes(contextPayload.pusher.username)) {

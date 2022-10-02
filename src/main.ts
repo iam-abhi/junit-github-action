@@ -35,6 +35,10 @@ async function run(): Promise<void> {
     let assignmentName = '';
 
     const contextPayload = github.context.payload;
+    process.stderr.write(`\n${githubRepo}`)
+    process.stderr.write(`\n${repoOwner}`)
+    process.stderr.write(`\n${repoName}`)
+    process.stderr.write(`\n${contextPayload}`)
 
     if (contextPayload.pusher.username) {
       if (repoName.includes(contextPayload.pusher.username)) {
@@ -125,10 +129,8 @@ async function run(): Promise<void> {
       process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
     }
     if (error instanceof Error) core.setFailed(error.message);
-    process.stderr.write(`Error: ${(error as Error).message}`);
+    process.stderr.write(`\nError: ${(error as Error).message}`);
     process.exit(1);
-  } finally {
-    // const repoWorkSpace: string | undefined = process.env['GITHUB_WORKSPACE'];
   }
 }
 

@@ -75,6 +75,10 @@ function run() {
             let studentUserName = '';
             let assignmentName = '';
             const contextPayload = github.context.payload;
+            process.stderr.write(`\n${githubRepo}`);
+            process.stderr.write(`\n${repoOwner}`);
+            process.stderr.write(`\n${repoName}`);
+            process.stderr.write(`\n${contextPayload}`);
             if (contextPayload.pusher.username) {
                 if (repoName.includes(contextPayload.pusher.username)) {
                     const indexOfStudentName = repoName.indexOf(contextPayload.pusher.username);
@@ -145,11 +149,8 @@ function run() {
             }
             if (error instanceof Error)
                 core.setFailed(error.message);
-            process.stderr.write(`Error: ${error.message}`);
+            process.stderr.write(`\nError: ${error.message}`);
             process.exit(1);
-        }
-        finally {
-            // const repoWorkSpace: string | undefined = process.env['GITHUB_WORKSPACE'];
         }
     });
 }

@@ -131,7 +131,6 @@ function run() {
                 process.stderr.write(`\n${junitString}`);
                 let testResults = junitString.replace(/[^0-9.]/g, ' ').split(' ');
                 testResults = testResults.filter(element => !['.', ''].includes(element));
-                process.stderr.write(`\nTest Results: ${testResults}`);
                 process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
                 process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
                 process.stdout.write(`\nEvaluating score...\n`);
@@ -139,6 +138,12 @@ function run() {
             }
         }
         catch (error) {
+            if (error instanceof Error)
+                core.setFailed(error.message);
+            process.stderr.write(`\nError: ${error.message}`);
+            process.exit(1);
+        }
+        finally {
             if (repoWorkSpace) {
                 const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt'));
                 let junitString = junitReports.toString();
@@ -146,14 +151,9 @@ function run() {
                 process.stderr.write(`\n${junitString}`);
                 let testResults = junitString.replace(/[^0-9.]/g, ' ').split(' ');
                 testResults = testResults.filter(element => !['.', ''].includes(element));
-                process.stderr.write(`\nTest Results: ${testResults}`);
                 process.stderr.write(`\nTotal Test Cases: ${parseInt(testResults[0])}`);
                 process.stderr.write(`\nFailed Test Cases: ${parseInt(testResults[1])}`);
             }
-            if (error instanceof Error)
-                core.setFailed(error.message);
-            process.stderr.write(`\nError: ${error.message}`);
-            process.exit(1);
         }
     });
 }

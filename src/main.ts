@@ -123,7 +123,8 @@ async function run(): Promise<void> {
       const junitReports = fs.readFileSync(
         path.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt')
       );
-      const junitString = junitReports.toString();
+      let junitString = junitReports.toString();
+      junitString = junitString.split('\n')[3];
       process.stderr.write(`\n${junitString}`);
       let testResults = junitString.replace(/[^0-9.]/g,' ').split(' ');
       testResults = testResults.filter(element => !['.',''].includes(element));

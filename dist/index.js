@@ -64,8 +64,7 @@ function run() {
                 throw new Error('No GITHUB_REPOSITORY');
             const [repoOwner, repoName] = githubRepo.split('/');
             // const token = process.env['ACCIO_ASGMNT_ACTION_TOKEN'];
-            // const ACCIO_API_ENDPOINT =
-            //   'https://accio-release-1-dot-acciojob-prod.el.r.appspot.com';
+            const ACCIO_API_ENDPOINT = 'https://accio-release-1-dot-acciojob-prod.el.r.appspot.com';
             // if (!token) throw new Error('No token given!');
             if (!repoWorkSpace)
                 throw new Error('No GITHUB_WORKSPACE');
@@ -127,7 +126,8 @@ function run() {
                 process.stderr.write(`\n3333`);
                 process.stderr.write(`\n${mvnInstall}`);
                 const junitReports = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'target/surefire-reports/com.driver.test.VehicleTest.txt'));
-                const junitString = junitReports.toString();
+                let junitString = junitReports.toString();
+                junitString = junitString.split('\n')[3];
                 process.stderr.write(`\n${junitString}`);
                 let testResults = junitString.replace(/[^0-9.]/g, ' ').split(' ');
                 testResults = testResults.filter(element => !['.', ''].includes(element));

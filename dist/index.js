@@ -102,19 +102,29 @@ function run() {
             process.stderr.write(`\n${assignmentName}`);
             process.stderr.write(`\n${studentUserName}`);
             if (true) {
-                const accioTestConfigData = fs_1.default.readFileSync(path_1.default.resolve(repoWorkSpace, 'acciotest.json'));
-                const accioTestConfig = JSON.parse(accioTestConfigData.toString());
-                const query = new URLSearchParams();
-                query.append('repo', accioTestConfig.testRepo);
-                query.append('filePath', accioTestConfig.pathToFile);
-                query.append('token', token);
-                // Get the encoded test file contents
-                const encodedTestFileData = yield axios_1.default.get(`${ACCIO_API_ENDPOINT}/github/action-get-file?${query.toString()}`);
-                const testFileContent = Buffer.from(encodedTestFileData.data, 'base64').toString('utf8');
-                fs_1.default.mkdirSync(path_1.default.resolve(repoWorkSpace, 'src/test/java/com/driver/test'), {
-                    recursive: true
-                });
-                fs_1.default.writeFileSync(path_1.default.resolve(repoWorkSpace, 'src/test/java/com/driver/test/TestCases.java'), testFileContent);
+                // const accioTestConfigData = fs.readFileSync(
+                //   path.resolve(repoWorkSpace, 'acciotest.json')
+                // );
+                // const accioTestConfig = JSON.parse(accioTestConfigData.toString());
+                // const query = new URLSearchParams();
+                // query.append('repo', accioTestConfig.testRepo);
+                // query.append('filePath', accioTestConfig.pathToFile);
+                // query.append('token', token);
+                // // Get the encoded test file contents
+                // const encodedTestFileData = await axios.get(
+                //   `${ACCIO_API_ENDPOINT}/github/action-get-file?${query.toString()}`
+                // );
+                // const testFileContent = Buffer.from(
+                //   encodedTestFileData.data,
+                //   'base64'
+                // ).toString('utf8');
+                // fs.mkdirSync(path.resolve(repoWorkSpace, 'src/test/java/com/driver/test'), {
+                //   recursive: true
+                // });
+                // fs.writeFileSync(
+                //   path.resolve(repoWorkSpace, 'src/test/java/com/driver/test/TestCases.java'),
+                //   testFileContent
+                // );
                 const mvnInstall = yield exec.exec('mvn install', undefined, {
                     cwd: repoWorkSpace
                 });

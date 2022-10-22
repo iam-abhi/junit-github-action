@@ -73,8 +73,7 @@ function run() {
                 throw new Error('No token given!');
             if (!repoWorkSpace)
                 throw new Error('No GITHUB_WORKSPACE');
-            if (repoOwner !== 'acciojob')
-                throw new Error('Error not under acciojob');
+            // if (repoOwner !== 'acciojob') throw new Error('Error not under acciojob');
             if (!repoName)
                 throw new Error('Failed to parse repoName');
             const contextPayload = github.context.payload;
